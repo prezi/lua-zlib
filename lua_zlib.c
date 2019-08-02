@@ -761,11 +761,6 @@ static int lzlib_compress(lua_State *L) {
         if (ret == Z_STREAM_END)
             break;
 
-        if (ret == Z_BUF_ERROR && 0 < zs.avail_out) {
-            lua_pushliteral(L, "input buffer error, input data may be corrupted");
-            lua_error(L);
-        }
-
         /* error condition? */
         if (ret != Z_OK)
             break;
@@ -824,6 +819,11 @@ static int lzlib_decompress(lua_State *L)
         /* done processing? */
         if (ret == Z_STREAM_END)
             break;
+
+        if (ret == Z_BUF_ERROR && 0 < zs.avail_out) {
+            lua_pushliteral(L, "input buffer error, input data may be corrupted");
+            lua_error(L);
+        }
 
         if (ret != Z_OK && ret != Z_BUF_ERROR) {
             /* cleanup */
