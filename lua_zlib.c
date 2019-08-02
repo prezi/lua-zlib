@@ -448,6 +448,11 @@ static int lzstream_inflate_block(lua_State *L, lz_stream *s) {
             s->eos = 1;
         }
 
+        if (ret == Z_BUF_ERROR && 0 < zs.avail_out) {
+            lua_pushliteral(L, "input buffer error, input data may be corrupted");
+            lua_error(L);
+        }
+
         /* number of processed bytes */
         if (s->peek) {
             size_t processed = s->i_buffer_len - s->i_buffer_pos - s->zstream.avail_in;
