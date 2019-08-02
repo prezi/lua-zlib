@@ -1260,6 +1260,7 @@ LUALIB_API int luaopen_zlib(lua_State * const L) {
     lz_create_deflate_mt(L);
     lz_create_inflate_mt(L);
 
+    lua_newtable(L);
     luaL_setfuncs(L, zlib_functions, 0);
 
     SETINT("BEST_SPEED", Z_BEST_SPEED);
