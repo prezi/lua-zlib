@@ -448,7 +448,7 @@ static int lzstream_inflate_block(lua_State *L, lz_stream *s) {
             s->eos = 1;
         }
 
-        if (ret == Z_BUF_ERROR && 0 < zs.avail_out) {
+        if (r == Z_BUF_ERROR && 0 < s->zstream.avail_out) {
             lua_pushliteral(L, "input buffer error, input data may be corrupted");
             lua_error(L);
         }
