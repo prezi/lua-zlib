@@ -933,7 +933,7 @@ static int lz_filter_impl(lua_State *L, int (*filter)(z_streamp, int), int (*end
     if ( filter == deflate ) {
         const char *const opts[] = { "none", "sync", "full", "finish", NULL };
         flush = luaL_checkoption(L, 2, opts[0], opts);
-        if ( flush ) flush++; 
+        if ( flush ) flush++;
         /* Z_NO_FLUSH(0) Z_SYNC_FLUSH(2), Z_FULL_FLUSH(3), Z_FINISH (4) */
 
         /* No arguments or nil, we are terminating the stream: */
@@ -1172,7 +1172,7 @@ static int lz_checksum(lua_State *L) {
         checksum_t checksum = (checksum_t)
             lua_touserdata(L, lua_upvalueindex(1));
         str = (const Bytef*)luaL_checklstring(L, 1, &len);
- 
+
         /* Calculate and replace the checksum */
         lua_pushnumber(L,
                        checksum((uLong)lua_tonumber(L, lua_upvalueindex(3)),
@@ -1180,7 +1180,7 @@ static int lz_checksum(lua_State *L) {
                                 len));
         lua_pushvalue(L, -1);
         lua_replace(L, lua_upvalueindex(3));
-        
+
         /* Calculate and replace the length */
         lua_pushnumber(L,
                        lua_tonumber(L, lua_upvalueindex(4)) + len);
@@ -1260,7 +1260,7 @@ LUALIB_API int luaopen_zlib(lua_State * const L) {
     lz_create_deflate_mt(L);
     lz_create_inflate_mt(L);
 
-    luaL_register(L, "zlib", zlib_functions);
+    luaL_setfuncs(L, "zlib", zlib_functions);
 
     SETINT("BEST_SPEED", Z_BEST_SPEED);
     SETINT("BEST_COMPRESSION", Z_BEST_COMPRESSION);
