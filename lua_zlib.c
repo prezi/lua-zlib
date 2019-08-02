@@ -1260,7 +1260,7 @@ LUALIB_API int luaopen_zlib(lua_State * const L) {
     lz_create_deflate_mt(L);
     lz_create_inflate_mt(L);
 
-    luaL_setfuncs(L, zlib_functions, 0);
+    luaL_newlib(L, zlib_functions);
 
     SETINT("BEST_SPEED", Z_BEST_SPEED);
     SETINT("BEST_COMPRESSION", Z_BEST_COMPRESSION);
