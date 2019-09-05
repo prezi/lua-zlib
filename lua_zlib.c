@@ -1261,6 +1261,8 @@ static const luaL_Reg zlib_functions[] = {
 #define SETLITERAL(n,v) (lua_pushliteral(L, n), lua_pushliteral(L, v), lua_settable(L, -3))
 #define SETINT(n,v) (lua_pushliteral(L, n), lua_pushinteger(L, v), lua_settable(L, -3))
 
+void luaL_setfuncs (lua_State *L, const luaL_Reg *l, int nup);
+
 LUALIB_API int luaopen_zlib(lua_State * const L) {
     lz_create_deflate_mt(L);
     lz_create_inflate_mt(L);
